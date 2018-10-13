@@ -15,4 +15,5 @@ RUN git clone https://github.com/synthetichealth/synthea.git && \
     ./gradlew build check test 
 
 COPY generate_patients.sh ./
+RUN chmod +x generate_patients.sh
 ENTRYPOINT [ "bash", "-c", "./generate_patients.sh" ]

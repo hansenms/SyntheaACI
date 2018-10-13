@@ -26,11 +26,8 @@
             "defaultValue": "syntheagenerator"
         },
         "syntheaArgs": {
-            "type": "array",
-            "defaultValue": [
-                "-p",
-                "100"
-            ]
+            "type": "string",
+            "defaultValue": "-p 100"
         }
     },
     "variables": {
@@ -110,7 +107,7 @@
                         "name": "synthea",
                         "properties": {
                             "image": "hansenms/syntheagenerator",
-                            "command": "[concat(variables('syntheaBaseCommand'),parameters('syntheaArgs'))]",
+                            "command": ["bash", "-c", "./generate_patients.sh"],
                             "volumeMounts": [
                                 {
                                     "mountPath": "/app/synthea/output",
