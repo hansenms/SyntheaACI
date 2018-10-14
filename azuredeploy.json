@@ -33,8 +33,7 @@
     "variables": {
         "azureCliImage": "microsoft/azure-cli",
         "storageAccountName": "[concat(parameters('storageAccountPrefix'), uniqueString(resourceGroup().id, deployment().name))]",
-        "containerGroupName": "[concat(parameters('containerGroupPrefix'), uniqueString(resourceGroup().id, deployment().name))]",
-        "syntheaBaseCommand": ["cd", "/app/synthea", "&&", "/app/synthea/run_synthea"]
+        "containerGroupName": "[concat(parameters('containerGroupPrefix'), uniqueString(resourceGroup().id, deployment().name))]"
     },
     "resources": [
         {
@@ -106,8 +105,14 @@
                     {
                         "name": "synthea",
                         "properties": {
-                            "image": "hansenms/syntheagenerator",
-                            "command": ["bash", "-c", "./generate_patients.sh"],
+                            "image": "hansenms/syntheagen",
+                            "command": ["bash", "-c", "/app/generate_patients.sh"],
+                            "environmentVariables":[
+                                {
+                                    "name": "SYNTHEA_ARGS",
+                                    "value": "[parameters('syntheaArgs')]"
+                                }
+                            ],
                             "volumeMounts": [
                                 {
                                     "mountPath": "/app/synthea/output",
