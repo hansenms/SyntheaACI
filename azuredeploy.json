@@ -14,11 +14,11 @@
                 "description": "Storage Account type"
             }
         },
-        "storageAccountPrefix": {
+        "storageAccountName": {
             "type": "string",
-            "defaultValue": "syntheapool",
+            "defaultValue": "",
             "metadata": {
-                "description": "Storage Account Name Prefix"
+                "description": "Storage Account Name"
             }
         },
         "containerGroupPrefix": {
@@ -32,7 +32,7 @@
     },
     "variables": {
         "azureCliImage": "microsoft/azure-cli",
-        "storageAccountName": "[concat(parameters('storageAccountPrefix'), uniqueString(resourceGroup().id, deployment().name))]",
+        "storageAccountName": "[if(empty(parameters('storageAccountName')),concat('syntheapoolsa', uniqueString(resourceGroup().id)),parameters('storageAccountName'))]",
         "containerGroupName": "[concat(parameters('containerGroupPrefix'), uniqueString(resourceGroup().id, deployment().name))]"
     },
     "resources": [
